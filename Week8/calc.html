@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Calculator</title>
+<style>
+    body {
+        background-color: #1e1e1e;
+        font-family: "Segoe UI", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .calculator {
+        background-color: #2c2c2c;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        width: 320px;
+        overflow: hidden;
+    }
+
+    .display {
+        background-color: #1e1e1e;
+        color: white;
+        font-size: 2rem;
+        text-align: right;
+        padding: 20px;
+        border: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 15px;
+    }
+
+    button {
+        background-color: #2c2c2c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.5rem;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    button:hover {
+        background-color: #3a3a3a;
+    }
+
+    button:active {
+        background-color: #505050;
+        transform: scale(0.96);
+    }
+
+    .span-two {
+        grid-column: span 2;
+    }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" class="display" disabled>
+    <div class="buttons">
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('|')">|</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('x')">x</button>
+
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('-')">-</button>
+
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendValue('+')">+</button>
+
+        <button class="span-two" onclick="clearDisplay()">C</button>
+    </div>
+</div>
+
+<audio id="clickSound" src="effect.mp3.mp3"></audio>
+
+<script>
+    const display = document.getElementById("display");
+    const clickSound = document.getElementById("clickSound");
+
+    function playClick() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+    function appendValue(val) {
+        playClick();
+        display.value += val;
+    }
+
+    function clearDisplay() {
+        playClick();
+        display.value = "";
+    }
+
+    function calculate() {
+        playClick();
+        try {
+            const expression = display.value.replace(/x/g, "*").replace(/\|/g, "/");
+            display.value = eval(expression);
+        } catch {
+            display.value = "Error";
+        }
+    }
+</script>
+
+</body>
+</html>
