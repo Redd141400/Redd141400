@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Entry Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        input {
+            margin: 5px;
+        }
+        #studentsList {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Student Entry Form</h2>
+
+    <label>Name:</label>
+    <input type="text" id="name"><br>
+
+    <label>Age:</label>
+    <input type="number" id="age"><br>
+
+    <label>Grade:</label>
+    <input type="text" id="grade"><br>
+
+    <button onclick="addStudent()">Add Student</button>
+
+    <h3>Students List:</h3>
+    <div id="studentsList"></div>
+
+    <script>
+       
+        let students = [];
+
+       
+        function Student(name, age, grade) {
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+        }
+
+     
+        function addStudent() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let grade = document.getElementById("grade").value;
+
+            if (!name || !age || !grade) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+           
+            let student = new Student(name, age, grade);
+
+            
+            students.push(student);
+
+            
+            displayStudents();
+
+            
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("grade").value = "";
+        }
+
+        
+        function displayStudents() {
+            let output = "";
+
+            for (let i = 0; i < students.length; i++) {
+                output += "<p><strong>" + students[i].name + "</strong> — Age: " 
+                        + students[i].age + ", Grade: " + students[i].grade + "</p>";
+            }
+
+            document.getElementById("studentsList").innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>
